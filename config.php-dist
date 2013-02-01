@@ -1,0 +1,25 @@
+<?php
+// Enable DEBUG() messages:
+DEFINE('LIBVALOA_DEBUG', 1);
+
+// Default layout, LIBVALOA_EXTENSIONSPATH/themes/default
+DEFINE('LIBVALOA_LAYOUT', 'default');
+
+// Default module, LIBVALOA_EXTENSIONSPATH/modules/index
+DEFINE('LIBVALOA_DEFAULT_ROUTE', 'index');
+
+// Database settings
+DEFINE('LIBVALOA_DB', 'mysql'); // mysql, sqlite, postgres
+DEFINE('LIBVALOA_DB_SERVER', 'localhost');
+DEFINE('LIBVALOA_DB_USERNAME', 'username');
+DEFINE('LIBVALOA_DB_PASSWORD', 'password');
+DEFINE('LIBVALOA_DB_DATABASE', 'databasename'); // With sqlite, this should point to writable SQLite database file
+
+// Installation path for the framework
+DEFINE('LIBVALOA_INSTALLPATH','.');
+
+// Extensions
+DEFINE('LIBVALOA_EXTENSIONSPATH', LIBVALOA_INSTALLPATH.'/extensions');
+
+// Zend framework integration
+DEFINE('ZEND_PATH', LIBVALOA_INSTALLPATH.'/Zend/library');
