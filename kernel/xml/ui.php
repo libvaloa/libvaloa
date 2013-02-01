@@ -62,7 +62,7 @@ class Xml_UI extends Xml {
 	private $paths = array();
 
 	private $properties = array(
-		"binding" => "",      // should probably be 'module' but many legacy projects depend on /page/common/binding
+		"binding" => "",
 		"bindingmain" => "",
 		"currentroute" => "",
 		"basehref" => "",
