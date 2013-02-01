@@ -20,6 +20,7 @@ Learn more about libvaloa and applications written on top of libvaloa at www.lib
 Contact:
 ========
 
-http://www.libvaloa.com/
-info@libvaloa.com
+- http://www.libvaloa.com/
+
+- info@libvaloa.com
 
