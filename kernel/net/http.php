@@ -62,15 +62,15 @@ class Net_HTTP extends Net_Socket {
 	}
 
 	/**
-	 * HTTP Request method GET or POST.
+	 * HTTP Request method
 	 *
 	 * @access public
-	 * @param  string $method Either GET or POST
+	 * @param  string $method Either GET, PURGE or POST
 	 * @return bool
 	 */
 	public function setMethod($method) {
 		$method = strtoupper($method);
-		if(in_array($method, array("GET", "POST"), true)) {
+		if(in_array($method, array("GET", "PURGE", "POST")), true)) {
 			$this->method = $method;
 			return true;
 		} else {
@@ -194,8 +194,8 @@ class Net_HTTP extends Net_Socket {
 		} else {
 			$getdata = "";
 		}
-		if($this->method === "GET") {
-			$request = "GET {$this->sliced['request']}{$getdata} HTTP/1.0\r\n";
+		if($this->method === "GET" || $this->method === "PURGE") {
+			$request = "{$this->method} {$this->sliced['request']}{$getdata} HTTP/1.0\r\n";
 			$request.= "Host: {$this->sliced['host']}\r\n";
 			if(isset($this->basicauth["user"]) && isset($this->basicauth["pass"])) {
 				$str = base64_encode("{$this->basicauth["user"]}:{$this->basicauth["pass"]}");
