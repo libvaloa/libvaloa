@@ -76,7 +76,7 @@ class Auth {
 	}
 
 	public static function getClientIP() {
-		if(isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && !empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+		if((defined('LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR') && LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR == 1) && (isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && !empty($_SERVER["HTTP_X_FORWARDED_FOR"]))) {
 			return $_SERVER["HTTP_X_FORWARDED_FOR"];
 		}
 		return $_SERVER["REMOTE_ADDR"];		
