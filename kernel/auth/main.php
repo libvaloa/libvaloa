@@ -111,7 +111,7 @@ class Auth {
 			$_SESSION["User"] = $user;
 			$_SESSION["UserID"] = $auth->getExternalUserID();
 			$_SESSION["ExternalSessionID"] = $auth->getExternalSessionID();
-			$_SESSION["IP"] = $this->getClientIP();
+			$_SESSION["IP"] = self::getClientIP();
 			$_SESSION["BASEHREF"] = $request->getBaseUri(true);
 			return true;
 		}
@@ -146,13 +146,10 @@ class Auth {
 		if(!$module || isset($_SESSION["BASEHREF"]) && $_SESSION["BASEHREF"] != Controller_Request::getInstance()->getBaseUri(true)) {
 			return false;
 		}
-		if(defined('LIBVALOA_AUTH_CHECKIP') && LIBVALOA_AUTH_CHECKIP == 0) {
-			$clientip = $_SERVER["REMOTE_ADDR"];			
-		} else {
-			$clientip = self::getClientIP();			
-		}
-		if($clientip != $_SERVER["REMOTE_ADDR"]) {
-			return false;
+		if(!defined('LIBVALOA_AUTH_CHECKIP') || LIBVALOA_AUTH_CHECKIP == 1) {
+			if(self::getClientIP() != $_SESSION["IP"]) {
+				return false;
+			}
 		}
 		if(!isset($_SESSION["UserID"])) {
 			return false;
