@@ -37,18 +37,6 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  */
 
-Interface Auth_IFace {
-	public function authentication($user, $pass);
-	public function authorize($userid, $module);
-	public function getExternalUserID($user);
-	public function getExternalSessionID($user);
-	public function logout();
-}
-
-Interface Auth_PWResetIFace {
-	public function updatePassword($user, $pass);
-}
-
 /**
  * Authentication library.
  *
