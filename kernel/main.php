@@ -227,6 +227,12 @@ class Main {
 			$this->ui->basehref = $this->request->getBaseUri();
 			$this->ui->basepath = $this->request->getPath();
 			$this->ui->lang = Xml_Read::detectLocale();
+			if(isset($_SESSION["UserID"])) {
+				$this->ui->userid = $_SESSION["UserID"];
+			}
+			if(isset($_SESSION["User"])) {
+				$this->ui->user = $_SESSION["User"];
+			}
 
 			return $this->ui;
 		} elseif($k === "view") {

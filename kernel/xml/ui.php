@@ -70,6 +70,8 @@ class Xml_UI extends Xml {
 		"locale" => "",
 		"title" => "",
 		"layout" => "",
+		"userid" => "",
+		"user" => "",
 		"contenttype" => "text/html"
 	);
 
@@ -204,7 +206,9 @@ class Xml_UI extends Xml {
 		
 		// Properties
 		foreach($this->properties as $k => $v) {
-			$xml->$k = $v;
+			if(!empty($v)) {
+				$xml->$k = $v;				
+			}
 		}
 		$this->addObject($xml, false, "common");
 		
