@@ -112,8 +112,8 @@ class Auth {
 		$request = Controller_Request::getInstance();
 		if($auth->authentication($user, $pass)) {
 			$_SESSION["User"] = $user;
-			$_SESSION["UserID"] = $auth->getExternalUserID();
-			$_SESSION["ExternalSessionID"] = $auth->getExternalSessionID();
+			$_SESSION["UserID"] = $auth->getExternalUserID($user);
+			$_SESSION["ExternalSessionID"] = $auth->getExternalSessionID($user);
 			$_SESSION["IP"] = self::getClientIP();
 			$_SESSION["BASEHREF"] = $request->getBaseUri(true);
 			return true;
