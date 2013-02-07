@@ -57,7 +57,7 @@ class Auth {
 	 * @access      public
 	 */
 	public function __construct() {
-		if(!defined(LIBVALOA_AUTH)) {
+		if(!defined('LIBVALOA_AUTH')) {
 			define('LIBVALOA_AUTH','null');
 		}
 		$this->backend = "Auth_".LIBVALOA_AUTH;
