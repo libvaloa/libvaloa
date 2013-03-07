@@ -13,10 +13,10 @@
  * License.
  *
  * The Original Code is Copyright (C)
- * 2008 Tarmo Alexander Sundström <ts@greyscale.fi>
+ * 2008 Tarmo Alexander Sundström <ta@sundstrom.im>
  *
  * The Initial Developer of the Original Code is
- * Tarmo Alexander Sundström <ts@greyscale.fi>
+ * Tarmo Alexander Sundström <ta@sundstrom.im>
  *
  * Portions created by the Initial Developer are Copyright (C) 2008
  * the Initial Developer. All Rights Reserved.

@@ -23,7 +23,7 @@
  *
  * Contributor(s):
  * 2007 Jorma Tuomainen <jt@wiza.fi>
- * 2008,2013 Tarmo Alexander Sundström <ts@greyscale.fi>
+ * 2008,2013 Tarmo Alexander Sundström <ta@sundstrom.im>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or

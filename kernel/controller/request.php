@@ -22,7 +22,7 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
- * 2009,2013 Tarmo Alexander Sundström <ts@greyscale.fi>
+ * 2009,2013 Tarmo Alexander Sundström <ta@sundstrom.im>
  *
  * Alternatively, the contents of this file may be used under the terms of
  * either the GNU General Public License Version 2 or later (the "GPL"), or
