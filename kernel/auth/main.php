@@ -36,7 +36,6 @@
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  */
-
 /**
  * Authentication library.
  *
@@ -47,6 +46,12 @@
  * @uses          Controller_Request
  * @uses          Controller_Redirect
  */
+
+if(!defined('LIBVALOA_AUTH'))                       define('LIBVALOA_AUTH','null');
+if(!defined('LIBVALOA_AUTH_CHECKIP'))               define('LIBVALOA_AUTH_CHECKIP', 1);
+if(!defined('LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR')) define('LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR', 0);
+if(!defined('LIBVALOA_DEFAULT_ROUTE'))              define('LIBVALOA_DEFAULT_ROUTE', '/');
+
 class Auth {
 
 	private $backend;
@@ -57,14 +62,12 @@ class Auth {
 	 * @access      public
 	 */
 	public function __construct() {
-		if(!defined('LIBVALOA_AUTH')) {
-			define('LIBVALOA_AUTH','null');
-		}
 		$this->backend = "Auth_".LIBVALOA_AUTH;
 	}
 
 	public static function getClientIP() {
-		if((defined('LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR') && LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR == 1) && (isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && !empty($_SERVER["HTTP_X_FORWARDED_FOR"]))) {
+		// Support for cache servers such as Varnish.
+		if(LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR == 1 && (isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && !empty($_SERVER["HTTP_X_FORWARDED_FOR"]))) {
 			return $_SERVER["HTTP_X_FORWARDED_FOR"];
 		}
 		return $_SERVER["REMOTE_ADDR"];		
@@ -137,7 +140,7 @@ class Auth {
 		if(!$module || isset($_SESSION["BASEHREF"]) && $_SESSION["BASEHREF"] != Controller_Request::getInstance()->getBaseUri(true)) {
 			return false;
 		}
-		if(!defined('LIBVALOA_AUTH_CHECKIP') || LIBVALOA_AUTH_CHECKIP == 1) {
+		if(LIBVALOA_AUTH_CHECKIP == 1) {
 			if(self::getClientIP() != $_SESSION["IP"]) {
 				return false;
 			}

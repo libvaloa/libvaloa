@@ -50,7 +50,7 @@ class Auth_Exception extends Common_Exception {
 		$ui = new XML_UI;
 		$ui->addError($this->getMessage());
 		$auth = new Auth;
-		$auth->accessDenied();
+		$auth->logout();
 	}
 
 }

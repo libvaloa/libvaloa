@@ -36,7 +36,7 @@
  * the terms of any one of the MPL, the GPL or the LGPL.
  */
 /**
- * Manage table row structures easily. Sorta mini-orm :)
+ * Manage table row structures easily.
  * 
  * Examples:
  * Insert new row to table 'People' with fields 'Firstname', 'Lastname' and 'Phone':

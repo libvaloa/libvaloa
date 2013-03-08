@@ -101,7 +101,7 @@ class Xml_UI extends Xml {
 	}
 
 	public function includePath($paths) {
-		$paths = (array)$paths;
+		$paths = (array) $paths;
 		foreach($paths as &$path) {
 			if(!in_array($path, $this->paths, true)) {
 				$this->paths[] = $path;

@@ -50,6 +50,8 @@
  * @uses          xml_Read
  */
 
+if(!defined('LIBVALOA_DEBUG')) define('LIBVALOA_DEBUG', 0);
+
 class libvaloa {
 
 	public static $db = false;
@@ -65,24 +67,23 @@ class libvaloa {
 		
 		// Start session.
 		// ini_set is quite often disabled on shared hosts, so just
-		// ignore cg_maxlifetime if ini_set is not available
+		// ignore cg_maxlifetime if ini_set is not available.
 		if(function_exists('ini_set')) {
 			ini_set("session.gc_maxlifetime", "43200");
 		}
 		session_set_cookie_params(43200);
 		session_start();
 		
-		// Register class autoloader
+		// Register class autoloader.
 		spl_autoload_register(array("libvaloa", "autoload"));
 		
 		// Uncaught exception handler.
 		set_exception_handler(array("libvaloa", "exceptionHandler"));
 		
-		// Enable debug.
-		if(defined('LIBVALOA_DEBUG') && LIBVALOA_DEBUG == 1) {
+		// Error reporting.
+		error_reporting(0);
+		if(LIBVALOA_DEBUG == 1) {
 			error_reporting(E_ALL | E_STRICT);
-		} else {
-			error_reporting(0);
 		}
 		self::$loaded = true;
 	}
@@ -357,18 +358,4 @@ function i18n() {
  */
 function db() {
 	return libvaloa::openDBConnection();
-}
-
-/**
- * DEBUG function.
- *
- * @package Kernel
- * @access  public
- */
-function DEBUG() {
-	if(!libvaloa::$loaded || (!defined('LIBVALOA_DEBUG') || LIBVALOA_DEBUG == 0) || !class_exists("Common_Debug") || Controller_Request::getInstance()->isJson())
-		return;
-
-	$a = func_get_args();
-	call_user_func_array(array("Common_Debug", "append"), $a);
 }

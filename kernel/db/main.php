@@ -80,7 +80,6 @@ class DB {
 	 * @param  mixed $sqlitedb Optional path to SQLite database
 	 * @param  bool $pconn Use persistent connection? Defaults to false
 	 * @uses   PDO
-	 * @uses   Common_Exception
 	 */
 	public function __construct($server = "localhost", $user, $pass = false, $database = false, $dbconn = "mysql", $pconn = false, $initquery = false) {
 		if($dbconn === "postgres") {
@@ -138,6 +137,7 @@ class DB {
 		switch($k) {
 			case "transCnt":
 				return $this->transcnt;
+				
 		}
 		throw new Exception("Program tried to access a non-existant member ".__CLASS__."::{$k}.");
 	}

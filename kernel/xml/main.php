@@ -92,9 +92,8 @@ class Xml {
 	public static function validateNodeName($node) {
 		if(empty($node) || is_numeric(substr($node, 0, 1)) || substr(strtolower($node), 0, 3) === "xml" || strstr($node, " ")) {
 			return false;
-		} else {
-			return true;
 		}
+		return true;
 	}
 
 	/**

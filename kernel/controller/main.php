@@ -90,9 +90,6 @@ class Controller {
 		}
 		$exec = $request->getMethod();
 		$application = new $application;
-		if(method_exists($application, "init")) {
-			$application->init();
-		}
 		if($exec) {
 			$application->{$exec}();
 		}

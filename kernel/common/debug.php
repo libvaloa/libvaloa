@@ -42,7 +42,11 @@
  * @package       Kernel
  * @subpackage    Common
  * @uses          Common_Time
+ * @uses          Controller_Request
+ * @uses          DB
  */
+
+if(!defined('LIBVALOA_DEBUG')) define('LIBVALOA_DEBUG', 0);
 
 class Common_Debug {
 
@@ -73,7 +77,7 @@ class Common_Debug {
 	}
 	
 	public static function dump() {
-		DEBUG("Executed ".DB::$querycount." sql queries");
+		self::debug("Executed ".DB::$querycount." sql queries");
 		print '<div class="debug">';
 		foreach(self::$data as $v) {
 			echo sprintf('<code><strong>%s</strong> Memory usage %s bytes<br/>%s&#160;[%s]%s</code><br/>', $v->backtrace, $v->mu, $v->time, $v->type, (in_array($v->type, array("array", "object"), true)?"<pre>".$v->data."</pre>":$v->data));
@@ -81,6 +85,14 @@ class Common_Debug {
 		print '</div>';
 		self::$data = array();
 	}
+
+	public static function debug() {
+		if(!libvaloa::$loaded || (!defined('LIBVALOA_DEBUG') || LIBVALOA_DEBUG == 0) || Controller_Request::getInstance()->isJson())
+			return;
+
+		$a = func_get_args();
+		call_user_func_array(array("Common_Debug", "append"), $a);
+	}	
 
 }
 

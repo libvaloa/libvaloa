@@ -45,6 +45,8 @@
  * @subpackage Xml
  */
 
+if(!defined('LIBVALOA_XML_ENABLE_PHP_FUNCTIONS')) define('LIBVALOA_XML_ENABLE_PHP_FUNCTIONS', 1);
+
 class Xml_Xsl {
 
 	/**
@@ -107,7 +109,9 @@ class Xml_Xsl {
 		$proc->importStylesheet($dom);	
 
 		// Allow PHP functions from XSL templates
-		$proc->registerPhpFunctions();		
+		if(LIBVALOA_XML_ENABLE_PHP_FUNCTIONS == 1) {
+			$proc->registerPhpFunctions();
+		}
 		return (string) $proc->transformToXML($xmldom);
 	}
 
