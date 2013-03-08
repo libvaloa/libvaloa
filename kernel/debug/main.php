@@ -40,7 +40,7 @@
  * Debug handler.
  *
  * @package       Kernel
- * @subpackage    Common
+ * @subpackage    Debug
  * @uses          Common_Time
  * @uses          Controller_Request
  * @uses          DB
@@ -48,7 +48,7 @@
 
 if(!defined('LIBVALOA_DEBUG')) define('LIBVALOA_DEBUG', 0);
 
-class Common_Debug {
+class Debug {
 
 	private static $data = array();
 	private static $shutdown = false;

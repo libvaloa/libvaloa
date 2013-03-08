@@ -41,25 +41,27 @@
  * Examples:
  * Insert new row to table 'People' with fields 'Firstname', 'Lastname' and 'Phone':
  *
- * $data=new DB_Row("people");
- * $data->columns(array("firstname"=>"","lastname"=>"","phone"=>0));
- * $data->firstname="John";
- * $data->lastname="Doe";
- * $data->phone="0123456789";
- * $id=$data->save();
+ * $data = new DB_Row("people");
+ * [[ $data->columns(array("firstname"=>"","lastname"=>"","phone"=>0)); ]]
+ * $data->firstname = "John";
+ * $data->lastname = "Doe";
+ * $data->phone = "0123456789";
+ * $id = $data->save();
  * 
  * Now edit newly inserted row, as John got a new phone number!
  * 
- * $data=new DB_Row("people");
- * $data->columns(array("phone"=>0));
+ * $data = new DB_Row("people");
+ * [[ $data->columns(array("phone"=>0)); ]]
  * $data->byID($id);
- * $data->phone="0404020230";
+ * $data->phone = "0404020230";
  * $data->save();
  *
  * @package    Kernel
  * @subpackage DB
  * @uses       DB
  */
+
+if(!defined('LIBVALOA_DB')) DEFINE('LIBVALOA_DB', 'mysql');
  
 class DB_Row {
 
@@ -100,6 +102,40 @@ class DB_Row {
 	public function columns($columns) {
 		$this->data = (object) $columns;
 	}	
+
+	private function detectColumns() {
+		// Columns already set
+		if(isset($this->data->{$this->primaryKey})) {
+			return;
+		}
+
+		// Detect columns
+		switch(LIBVALOA_DB) {
+			case 'mysql';
+			case 'postgres';
+			case 'sqlite';
+			default;
+				// Detect columns
+				$query = "SHOW COLUMNS FROM ?";
+				$stmt = db()->prepare($query);
+				$stmt->set($this->struct);
+				try {
+					$stmt->execute();
+					Debug::debug($row);
+
+					// TODO: Could add typecasting here based on $row->Type
+					foreach($stmt as $row) {
+						Debug::debug($row);
+						$columns[$row->Field] = "";
+					}
+					if(isset($columns)) {
+						$this->columns($columns);
+					}
+				} catch(Exception $e) {
+				}
+			break;
+		}
+	}
 	
 	/**
 	 * Get a column
@@ -107,6 +143,7 @@ class DB_Row {
 	 * @param string $field
 	 */ 
 	public function __get($field) {
+		$this->detectColumns();
 		if(is_numeric($this->lateload)) {
 			$this->_byID();
 		}
@@ -120,6 +157,7 @@ class DB_Row {
 	 * @param string $value
 	 */
 	public function __set($key, $value) {
+		$this->detectColumns();
 		if(is_numeric($this->lateload)) {
 			$this->_byID();
 		}
@@ -146,6 +184,7 @@ class DB_Row {
 	}
 	
 	private function _byID() {
+		$this->detectColumns();
 		$stmt = db()->prepare("SELECT * FROM {$this->struct} WHERE {$this->primaryKey}=?");
 		$stmt->set((int) $this->lateload);
 		$stmt->execute();
