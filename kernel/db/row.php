@@ -121,11 +121,11 @@ class DB_Row {
 				$stmt->set($this->struct);
 				try {
 					$stmt->execute();
-					Debug::debug($row);
+					Debug::d($row);
 
 					// TODO: Could add typecasting here based on $row->Type
 					foreach($stmt as $row) {
-						Debug::debug($row);
+						Debug::d($row);
 						$columns[$row->Field] = "";
 					}
 					if(isset($columns)) {

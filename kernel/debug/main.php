@@ -86,7 +86,7 @@ class Debug {
 		self::$data = array();
 	}
 
-	public static function debug() {
+	public static function d() {
 		if(!libvaloa::$loaded || (!defined('LIBVALOA_DEBUG') || LIBVALOA_DEBUG == 0) || Controller_Request::getInstance()->isJson())
 			return;
 
