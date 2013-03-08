@@ -116,17 +116,18 @@ class DB_Row {
 			case 'sqlite';
 			default;
 				// Detect columns
-				$query = "SHOW COLUMNS FROM ?";
+				$query = "SHOW COLUMNS FROM {$this->struct}";
 				$stmt = db()->prepare($query);
-				$stmt->set($this->struct);
 				try {
 					$stmt->execute();
-					Debug::d($row);
-
-					// TODO: Could add typecasting here based on $row->Type
 					foreach($stmt as $row) {
-						Debug::d($row);
 						$columns[$row->Field] = "";
+						if(substr($row->Field, 0, 2) == "int" && $row->Key != "PRI") {
+							$columns[$row->Field] = (int) 0;	
+						}
+						if($row->Key == "PRI") {
+							$this->primaryKey($row->Field);
+						}
 					}
 					if(isset($columns)) {
 						$this->columns($columns);

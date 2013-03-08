@@ -70,8 +70,6 @@ class Xml_Read extends XML {
 	 * Locale is stored to self::locale variable for quick retrieval.
 	 *
 	 * @access public
-	 * @uses   Common_User
-	 * @uses   Cache
 	 * @return string Locale fe. 'en' or 'fi'
 	 */
 	public static function detectLocale() {
@@ -98,10 +96,12 @@ class Xml_Read extends XML {
 			$sub = $request->getChildModule();			
 		}
 		self::$strings[$module] = array();
-		foreach($this->paths as $path) {
-			if(is_readable($path."/{$main}/{$sub}.xml")) {
-				return self::$strings[$module] = $this->parseXML($path."/{$main}/{$sub}.xml", $type);
-			}			
+		if(isset($this->paths) && is_array($this->paths)) {
+			foreach($this->paths as $path) {
+				if(is_readable($path."/{$main}/{$sub}.xml")) {
+					return self::$strings[$module] = $this->parseXML($path."/{$main}/{$sub}.xml", $type);
+				}
+			}
 		}
 	}
 	
@@ -110,7 +110,7 @@ class Xml_Read extends XML {
 	 * @access public
 	 */
 	public function loadThemeStrings() {
-		if(!isset(self::$strings["__theme"])) {
+		if(!isset(self::$strings["__theme"]) && (isset($this->paths) && is_array($this->paths))) {
 			foreach($this->paths as $path) {
 				if(is_readable($path."/locale.xml")) {
 					return self::$strings["__theme"] = $this->parseXML($path."/locale.xml");		
