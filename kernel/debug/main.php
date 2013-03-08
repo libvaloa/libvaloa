@@ -70,7 +70,7 @@ class Debug {
 		$backtrace = debug_backtrace();
 		$debugobj->backtrace = "{$backtrace[2]["file"]} line {$backtrace[2]["line"]} (Called from {$backtrace[3]["function"]}())";
 		if(self::$shutdown === false) {
-			register_shutdown_function(array("Common_Debug", "dump"));
+			register_shutdown_function(array("Debug", "dump"));
 			self::$shutdown = true;
 		}
 		self::$data[] = $debugobj;
@@ -91,7 +91,7 @@ class Debug {
 			return;
 
 		$a = func_get_args();
-		call_user_func_array(array("Common_Debug", "append"), $a);
+		call_user_func_array(array("Debug", "append"), $a);
 	}	
 
 }

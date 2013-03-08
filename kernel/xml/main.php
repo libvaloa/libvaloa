@@ -58,6 +58,8 @@ class Xml {
 	 */
 	protected $dom;
 
+	private $paths = array();
+
 	/**
 	 * Constructor.
 	 *
