@@ -77,7 +77,9 @@ class Debug {
 	}
 	
 	public static function dump() {
-		self::d("Executed ".DB::$querycount." sql queries");
+		if(class_exists('DB')) {
+			self::d("Executed ".DB::$querycount." sql queries");			
+		}
 		print '<div class="debug">';
 		foreach(self::$data as $v) {
 			echo sprintf('<code><strong>%s</strong> Memory usage %s bytes<br/>%s&#160;[%s]%s</code><br/>', $v->backtrace, $v->mu, $v->time, $v->type, (in_array($v->type, array("array", "object"), true)?"<pre>".$v->data."</pre>":$v->data));
