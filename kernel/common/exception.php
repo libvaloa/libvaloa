@@ -42,7 +42,7 @@
  * @subpackage    Common
  */
 
-class Common_Exception extends Exception {
+class Perkele extends Exception {
 
 	private $previous = NULL; // simulates PHP 5.3 functionality
 
