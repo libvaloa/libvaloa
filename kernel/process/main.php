@@ -39,13 +39,12 @@
  * Call command-line commands gracefully.
  *
  * Example:
- * $output = new Common_Process("command");
+ * $output = new Process("command");
  *
  * @package    Kernel
- * @subpackage Common
  */
 
-class Common_Process {
+class Process {
 
 	/**
 	 * Command output
