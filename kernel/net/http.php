@@ -70,7 +70,7 @@ class Net_HTTP extends Net_Socket {
 	 */
 	public function setMethod($method) {
 		$method = strtoupper($method);
-		if(in_array($method, array("GET", "PURGE", "POST")), true)) {
+		if(in_array($method, array("GET", "PURGE", "POST"), true)) {
 			$this->method = $method;
 			return true;
 		} else {
