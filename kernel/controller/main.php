@@ -59,6 +59,7 @@ class Controller {
 	 */
 	public function __construct() {
 		$request = Controller_Request::getInstance();
+		
 		if(!$request->getModule() || !$request->moduleExists()) {
 			$request->shiftMethod();
 			$request->shiftModule();
@@ -71,6 +72,7 @@ class Controller {
 				$params = explode("/", LIBVALOA_DEFAULT_ROUTE);
 				$request->setModule($params[0]);
 			}
+			
 			if(!$request->moduleExists()) {
 				throw new Exception("Application not found.");
 			} else {
@@ -80,19 +82,39 @@ class Controller {
 				}
 				$request->setParams($params);
 			}
+			unset($params);
 		}		
-		$application = "Module_".$request->getModule();
+		
+		$application = "Module_".$request->getModule();		
 		if(!in_array($request->getMethod(), get_class_methods($application), true) || substr($request->getMethod(), 0 ,2) === "__" || in_array($request->getMethod(), array("init"), true)) {
 			$request->shiftMethod();
 			if(in_array("index", get_class_methods($application))) {
 				$request->setMethod("index");
 			}
 		}
-		$exec = $request->getMethod();
+		
 		$application = new $application;
-		if($exec) {
-			$application->{$exec}();
+		$method = $request->getMethod();
+		
+		if($method) {
+			// Get expected parameters
+			$reflection = new ReflectionClass($application);
+			$expectedParams = $reflection->getMethod($method)->getNumberOfParameters();
+			if($expectedParams > 0) {
+				for(; $expectedParams != 0; $expectedParams--) {
+					$params[] = $request->getParam($expectedParams - 1); // Params start from 0 in Controller_Request
+				}
+				$params = array_reverse($params);
+			}
+		
+			// Execute the module
+			if(isset($params)) {
+				call_user_func_array(array($application, $method), $params);
+			} else {
+				$application->{$method}();
+			}
 		}
+		
 		echo $application;
 	}
 
