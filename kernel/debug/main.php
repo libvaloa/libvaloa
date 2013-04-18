@@ -96,10 +96,10 @@ class Debug {
 		$a = func_get_args();
 		call_user_func_array(array("Debug", "append"), $a);
 	}	
-	
-	public static function print() {
+
+	public static function __print() {
 		return self::d(func_get_args());
-	}
+	}	
 
 }
 
