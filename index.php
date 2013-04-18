@@ -52,7 +52,7 @@ if(file_exists("config.php")) {
 
 // Predefine some core vars
 if(!defined("LIBVALOA_INSTALLPATH"))    DEFINE("LIBVALOA_INSTALLPATH", ".");
-if(!defined("LIBVALOA_EXTENSIONSPATH")) DEFINE("LIBVALOA_EXTENSIONSPATH", LIBVALOA_INSTALLPATH.PATH_SEPARATOR."extensions");
+if(!defined("LIBVALOA_EXTENSIONSPATH")) DEFINE("LIBVALOA_EXTENSIONSPATH", LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."extensions");
 if(!defined("LIBVALOA_DEBUG"))          DEFINE("LIBVALOA_DEBUG", 0);
 if(!defined("LIBVALOA_LAYOUT"))         DEFINE("LIBVALOA_LAYOUT", 'default');
 
@@ -61,9 +61,9 @@ if(!defined("LIBVALOA_DB"))             DEFINE("LIBVALOA_DB", "sqlite");
 if(!defined("LIBVALOA_DB_SERVER"))      DEFINE("LIBVALOA_SERVER", "localhost");
 if(!defined("LIBVALOA_DB_USERNAME"))    DEFINE("LIBVALOA_USERNAME", "");
 if(!defined("LIBVALOA_DB_PASSWORD"))    DEFINE("LIBVALOA_PASSWORD", "");
-if(!defined("LIBVALOA_DB_DATABASE"))    DEFINE("LIBVALOA_DATABASE", LIBVALOA_INSTALLPATH.PATH_SEPARATOR."db".PATH_SEPARATOR."default.sqlite");
+if(!defined("LIBVALOA_DB_DATABASE"))    DEFINE("LIBVALOA_DATABASE", LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."db".DIRECTORY_SEPARATOR."default.sqlite");
 
-if(!is_readable(LIBVALOA_INSTALLPATH."/kernel/main.php")) {
+if(!is_readable(LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."kernel".DIRECTORY_SEPARATOR."main.php")) {
 	die("libvaloa kernel is missing.");
 }
 
@@ -72,13 +72,13 @@ if(defined("ZEND_PATH")) {
 	set_include_path(ZEND_PATH.PATH_SEPARATOR.get_include_path());
 }
 
-set_include_path(LIBVALOA_INSTALLPATH.PATH_SEPARATOR."kernel".PATH_SEPARATOR.get_include_path());
-if(file_exists(LIBVALOA_EXTENSIONSPATH.PATH_SEPARATOR."kernel")) {
-	set_include_path(LIBVALOA_EXTENSIONSPATH.PATH_SEPARATOR."kernel".PATH_SEPARATOR.get_include_path());
+set_include_path(LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."kernel".PATH_SEPARATOR.get_include_path());
+if(file_exists(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."kernel")) {
+	set_include_path(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."kernel".PATH_SEPARATOR.get_include_path());
 }
 
 // Include core classes and functions.
-require_once(LIBVALOA_INSTALLPATH.PATH_SEPARATOR."kernel".PATH_SEPARATOR."main.php");
+require_once(LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."kernel".DIRECTORY_SEPARATOR."main.php");
 
 // Load the kernel.
 new libvaloa;

@@ -100,10 +100,10 @@ class libvaloa {
 			// Module
 			$tmp = explode("_", strtolower($name));
 			if(isset($tmp[2]) && !empty($tmp[2])) {
-				$search[] = LIBVALOA_EXTENSIONSPATH."/modules/{$tmp[1]}/{$tmp[2]}.php";
+				$search[] = LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."modules".DIRECTORY_SEPARATOR."{$tmp[1]}".DIRECTORY_SEPARATOR."{$tmp[2]}.php";
 			}
 			if(isset($tmp[1]) && !empty($tmp[1])) {
-				$search[] = LIBVALOA_EXTENSIONSPATH."/modules/{$tmp[1]}/{$tmp[1]}.php";
+				$search[] = LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."modules".DIRECTORY_SEPARATOR."{$tmp[1]}".DIRECTORY_SEPARATOR."{$tmp[1]}.php";
 			}
 		} else {
 			// Load kernel classes			
@@ -117,7 +117,7 @@ class libvaloa {
 				$search[] = $path.$filename.".php";
 			}
 			foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
-				$search[] = $path.$filename."/main.php";
+				$search[] = $path.$filename.DIRECTORY_SEPARATOR."main.php";
 			}
 		}
 		
@@ -213,10 +213,10 @@ class Main {
 			$this->ui = new XML_UI;
 
 			// File paths for the UI
-			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH."/themes");
-			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH."/modules");
-			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH."/themes/".LIBVALOA_LAYOUT);
-			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH."/modules/".$this->request->getMainModule());
+			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."themes");
+			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."modules");
+			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR.LIBVALOA_LAYOUT);
+			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."modules".DIRECTORY_SEPARATOR.$this->request->getMainModule());
 			if($this->request->isAjax()) {
 				$this->ui->setMainXSL("empty");
 			}
