@@ -56,8 +56,8 @@ class Xml_Read extends XML {
 	 */
 	public static function availableLocales() {
 		foreach($this->paths as $path) {
-			if(is_readable($path."/conf/locales.xml")) {
-				return XML::fromFile($path."/conf/locales.xml","/locales");
+			if(is_readable($path.DIRECTORY_SEPARATOR."conf".DIRECTORY_SEPARATOR."locales.xml")) {
+				return XML::fromFile($path.DIRECTORY_SEPARATOR."conf".DIRECTORY_SEPARATOR."locales.xml",DIRECTORY_SEPARATOR."locales");
 			}			
 		}
 		return array();
@@ -98,8 +98,8 @@ class Xml_Read extends XML {
 		self::$strings[$module] = array();
 		if(isset($this->paths) && is_array($this->paths)) {
 			foreach($this->paths as $path) {
-				if(is_readable($path."/{$main}/{$sub}.xml")) {
-					return self::$strings[$module] = $this->parseXML($path."/{$main}/{$sub}.xml", $type);
+				if(is_readable($path.DIRECTORY_SEPARATOR."{$main}".DIRECTORY_SEPARATOR."{$sub}.xml")) {
+					return self::$strings[$module] = $this->parseXML($path.DIRECTORY_SEPARATOR."{$main}".DIRECTORY_SEPARATOR."{$sub}.xml", $type);
 				}
 			}
 		}
@@ -112,8 +112,8 @@ class Xml_Read extends XML {
 	public function loadThemeStrings() {
 		if(!isset(self::$strings["__theme"]) && (isset($this->paths) && is_array($this->paths))) {
 			foreach($this->paths as $path) {
-				if(is_readable($path."/locale.xml")) {
-					return self::$strings["__theme"] = $this->parseXML($path."/locale.xml");		
+				if(is_readable($path.DIRECTORY_SEPARATOR."locale.xml")) {
+					return self::$strings["__theme"] = $this->parseXML($path.DIRECTORY_SEPARATOR."locale.xml");		
 				}
 			}
 		}
