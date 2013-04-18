@@ -89,12 +89,17 @@ class Debug {
 	}
 
 	public static function d() {
-		if(!libvaloa::$loaded || (!defined('LIBVALOA_DEBUG') || LIBVALOA_DEBUG == 0) || Controller_Request::getInstance()->isJson())
+		if(!libvaloa::$loaded || (!defined('LIBVALOA_DEBUG') || LIBVALOA_DEBUG == 0) || Controller_Request::getInstance()->isJson()) {
 			return;
+		}
 
 		$a = func_get_args();
 		call_user_func_array(array("Debug", "append"), $a);
 	}	
+	
+	public static function print() {
+		return self::d(func_get_args());
+	}
 
 }
 

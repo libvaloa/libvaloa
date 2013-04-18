@@ -48,12 +48,6 @@ class Auth_Password {
 		if(LIBVALOA_PASSWORD_USE_CRYPT == 1) {
 			return crypt($username.$plaintextPassword);
 		}
-
-		// Use double salting for password hash.
-		// This way, even if someone can produce a rainbow table for this algorithm, 
-		// and has the salt to do it with, they will never know where in the hash 
-		// parameter the second salt was placed, because they don't know the length 
-		// of the actual password. 
 		$password = str_split($plaintextPassword, (strlen($plaintextPassword) / 2) + 1); 
 		$hash = hash('sha1', $username.$password[0].'$$'.$password[1]); 
 		return $hash; 
