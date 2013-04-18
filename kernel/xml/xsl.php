@@ -112,6 +112,7 @@ class Xml_Xsl {
 		if(LIBVALOA_XML_ENABLE_PHP_FUNCTIONS == 1) {
 			$proc->registerPhpFunctions();
 		}
+		
 		return (string) $proc->transformToXML($xmldom);
 	}
 

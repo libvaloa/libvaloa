@@ -231,8 +231,8 @@ class Xml_UI extends Xml {
 	public function detectMainXSL() {
 		$name = (isset($this->mainxsl) && !empty($this->mainxsl))?$this->mainxsl:"index";
 		foreach($this->getIncludePaths() as $path) {
-			if(is_readable("{$path}/{$name}.xsl")) {
-				$this->xsl->includeXSL("{$path}/{$name}.xsl", true);
+			if(is_readable("{$path}".DIRECTORY_SEPARATOR."{$name}.xsl")) {
+				$this->xsl->includeXSL("{$path}".DIRECTORY_SEPARATOR."{$name}.xsl", true);
 				return;
 			}
 		}
@@ -263,10 +263,12 @@ class Xml_UI extends Xml {
 	}
 
 	private function addFile($name = false) {
+		$tmp = $name;
+		$name = str_replace("/", DIRECTORY_SEPARATOR, $name);
 		$ext = substr(strrchr($name, "."), 1);
 		foreach($this->paths as &$v) {
-			if(is_readable($v."/{$name}") && !empty($ext)) {
-				$this->requisites->{$ext}[] = "resource/{$name}";
+			if(is_readable($v.DIRECTORY_SEPARATOR."{$name}") && !empty($ext)) {
+				$this->requisites->{$ext}[] = "resource/{$tmp}";
 				return;
 			}
 		}		
@@ -286,8 +288,8 @@ class Xml_UI extends Xml {
 	public function addXSL($name = false) {
 		$name.= ".xsl";
 		foreach($this->paths as $path) {
-			if(is_readable("{$path}/{$name}")) {
-				$this->xsl->includeXSL("{$path}/{$name}");
+			if(is_readable("{$path}".DIRECTORY_SEPARATOR."{$name}")) {
+				$this->xsl->includeXSL("{$path}".DIRECTORY_SEPARATOR."{$name}");
 				return;
 			}
 		}
