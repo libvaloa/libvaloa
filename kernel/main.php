@@ -114,13 +114,13 @@ class libvaloa {
 				$filename = strtolower(str_replace("_", DIRECTORY_SEPARATOR, $name));
 			}
 			foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
-				$search[] = $path.$filename.".php";
+				$search[] = $path.DIRECTORY_SEPARATOR.$filename.".php";
 			}
 			foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
-				$search[] = $path.$filename.DIRECTORY_SEPARATOR."main.php";
+				$search[] = $path.DIRECTORY_SEPARATOR.$filename.DIRECTORY_SEPARATOR."main.php";
 			}
 		}
-		
+
 		// Include classes if found
 		if(isset($search)) {
 			foreach($search as &$v) {
