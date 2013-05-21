@@ -63,8 +63,12 @@ class Controller_Request {
 	function __construct() {
 		if(substr(php_sapi_name(), 0, 3) === "cgi" && isset($_SERVER["ORIG_PATH_INFO"])) {
 			$uri = $_SERVER["HTTP_HOST"].$_SERVER["ORIG_PATH_INFO"];
-		} else {
+		} elseif(isset($_SERVER["HTTP_HOST"])) {
 			$uri = $_SERVER["HTTP_HOST"].$_SERVER["PHP_SELF"];
+		} else {
+			// cli
+			$uri = $_SERVER["PHP_SELF"];
+			$_SERVER["HTTP_HOST"] = "localhost";
 		}
 		
 		// strip / from the end of url
