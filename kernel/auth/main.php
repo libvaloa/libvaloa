@@ -65,6 +65,10 @@ class Auth {
 		$this->backend = "Auth_".LIBVALOA_AUTH;
 	}
 
+	public function getBackend() {
+		return $this->backend;
+	}
+
 	public static function getClientIP() {
 		// Support for cache servers such as Varnish.
 		if(LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR == 1 && (isset($_SERVER["HTTP_X_FORWARDED_FOR"]) && !empty($_SERVER["HTTP_X_FORWARDED_FOR"]))) {
@@ -148,7 +152,9 @@ class Auth {
 		if(!isset($_SESSION["UserID"])) {
 			return false;
 		}
-		$auth = new $this->backend;
+		$tmp = new Auth;
+		$backend = $tmp->getBackend();
+		$auth = new $backend;
 		if($auth instanceof Auth_IFace) {
 			return $auth->authorize($_SESSION["UserID"], $module);
 		}
