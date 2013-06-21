@@ -58,34 +58,10 @@ class Controller {
 	 * @uses        Controller_Request
 	 */
 	public function __construct() {
+		Controller::defaults();
+
 		$request = Controller_Request::getInstance();
-		
-		if(!$request->getModule() || !$request->moduleExists()) {
-			$request->shiftMethod();
-			$request->shiftModule();
-			
-			// Get default module
-			if(isset($_SESSION["UserID"]) && !empty($_SESSION["UserID"])) {
-				$params = explode("/", LIBVALOA_DEFAULT_ROUTE_AUTHED);
-				$request->setModule($params[0]);
-			} else {
-				$params = explode("/", LIBVALOA_DEFAULT_ROUTE);
-				$request->setModule($params[0]);
-			}
-			
-			if(!$request->moduleExists()) {
-				throw new Exception("Application not found.");
-			} else {
-				unset($params[0]);
-				if(isset($params[1])) {
-					$request->setMethod(array_shift($params));
-				}
-				$request->setParams($params);
-			}
-			unset($params);
-		}		
-		
-		$application = "Module_".$request->getModule();		
+		$application = "Module_".$request->getModule();
 		if(!in_array($request->getMethod(), get_class_methods($application), true) || substr($request->getMethod(), 0 ,2) === "__" || in_array($request->getMethod(), array("init"), true)) {
 			$request->shiftMethod();
 			if(in_array("index", get_class_methods($application))) {
@@ -117,5 +93,37 @@ class Controller {
 		
 		echo $application;
 	}
+
+	/**
+	* Sets default routes
+	*/
+	public static function defaults() {
+		$request = Controller_Request::getInstance();
+		
+		if(!$request->getModule() || !$request->moduleExists()) {
+			$request->shiftMethod();
+			$request->shiftModule();
+			
+			// Get default module
+			if(isset($_SESSION["UserID"]) && !empty($_SESSION["UserID"])) {
+				$params = explode("/", LIBVALOA_DEFAULT_ROUTE_AUTHED);
+				$request->setModule($params[0]);
+			} else {
+				$params = explode("/", LIBVALOA_DEFAULT_ROUTE);
+				$request->setModule($params[0]);
+			}
+			
+			if(!$request->moduleExists()) {
+				throw new Exception("Application not found.");
+			} else {
+				unset($params[0]);
+				if(isset($params[1])) {
+					$request->setMethod(array_shift($params));
+				}
+				$request->setParams($params);
+			}
+			unset($params);
+		}
+	}	
 
 }

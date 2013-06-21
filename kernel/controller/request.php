@@ -60,7 +60,7 @@ class Controller_Request {
 	private $ajax = false;
 	private $json = false;
 
-	function __construct() {
+	function __construct() {		
 		if(substr(php_sapi_name(), 0, 3) === "cgi" && isset($_SERVER["ORIG_PATH_INFO"])) {
 			$uri = $_SERVER["HTTP_HOST"].$_SERVER["ORIG_PATH_INFO"];
 		} elseif(isset($_SERVER["HTTP_HOST"])) {
