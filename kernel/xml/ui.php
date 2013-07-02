@@ -46,7 +46,7 @@
  * @uses       Xml_Xsl
  */
 
-class Xml_UI extends Xml {
+class Xml_UI extends Xml Implements UI {
 
 	/**
 	 * @access private
@@ -181,6 +181,11 @@ class Xml_UI extends Xml {
 	public function setMainXSL($file) {
 		$this->mainxsl = $file;
 	}
+
+	// Interface alias
+	public function setMainTemplate($file) {
+		$this->setMainXSL($file);
+	}
 	
 	/**
 	 * Adds common XML data and returns XSL parser output.
@@ -293,6 +298,11 @@ class Xml_UI extends Xml {
 				return;
 			}
 		}
+	}
+
+	// Interface alias
+	public function addTemplate($name = false) {
+		$this->addXSL($name);
 	}
 
 	/**

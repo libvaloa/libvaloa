@@ -51,6 +51,7 @@
  */
 
 if(!defined('LIBVALOA_DEBUG')) define('LIBVALOA_DEBUG', 0);
+if(!defined('LIBVALOA_UI'))    define('LIBVALOA_UI', 'XML_UI');
 
 class libvaloa {
 
@@ -209,8 +210,9 @@ class Main {
 				$_SESSION["locale"] = "en";
 			}
 
-			// UI			
-			$this->ui = new XML_UI;
+			// UI
+			$ui = LIBVALOA_UI;
+			$this->ui = new $ui;
 
 			// File paths for the UI
 			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."themes");
