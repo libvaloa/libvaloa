@@ -43,7 +43,7 @@
  * @uses          libvaloa
  */
 
-class Common_Time {
+class Benchmark {
 
 	private $startTime;
 	private $startMem;

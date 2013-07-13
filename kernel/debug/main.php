@@ -41,7 +41,7 @@
  *
  * @package       Kernel
  * @subpackage    Debug
- * @uses          Common_Time
+ * @uses          Benchmark
  * @uses          Controller_Request
  * @uses          DB
  */
@@ -59,7 +59,7 @@ class Debug {
 			$value = reset($value);
 		}
 		$debugobj = new stdClass;
-		$debugobj->time = Common_Time::benchScript(5);
+		$debugobj->time = Benchmark::benchScript(5);
 		$debugobj->mu = memory_get_usage();
 		$debugobj->type = gettype($value);
 		if(is_array($value) || is_object($value)) {
