@@ -154,7 +154,7 @@ class Xml {
 	*/
 	public static function fromFile($file, $path = false) {
 		if(!is_file($file)) {
-			throw new Exception("Source file for XML data was not found.");
+			throw new InvalidArgumentException("Source file for XML data was not found.");
 		}
 		$xml = new DomDocument;
 		$xml->load($file);

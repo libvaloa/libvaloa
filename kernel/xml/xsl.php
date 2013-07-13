@@ -95,7 +95,7 @@ class Xml_Xsl {
 			unset($primary);
 		}
 		if(!isset($primary)) {
-			throw new Exception("No valid XML stylesheets were found for XSLT parser.");
+			throw new RuntimeException("No valid XML stylesheets were found for XSLT parser.");
 		}
 		foreach($this->xslfiles as $k => &$v) {
 			if($k === $primary) {

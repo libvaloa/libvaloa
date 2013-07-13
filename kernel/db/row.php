@@ -78,7 +78,7 @@ class DB_Row {
 	 */
 	public function __construct($table = false) {
 		if(!$table) {
-			throw new Exception("Data structure name needed.");
+			throw new InvalidArgumentException("Data structure name needed.");
 		}
 		$this->struct = $table;
 		$this->data = new stdClass;
@@ -186,12 +186,12 @@ class DB_Row {
 	
 	private function _byID() {
 		$this->detectColumns();
-		$stmt = db()->prepare("SELECT * FROM {$this->struct} WHERE {$this->primaryKey}=?");
+		$stmt = db()->prepare("SELECT * FROM {$this->struct} WHERE {$this->primaryKey} = ?");
 		$stmt->set((int) $this->lateload);
 		$stmt->execute();
 		$row = $stmt->fetch();
 		if($row === false) {
-			throw new Exception("Selected row does not exist.");
+			throw new OutOfBoundsException("Selected row does not exist.");
 		}
 		$this->data = $row;
 		$this->lateload = false;

@@ -95,7 +95,7 @@ class Process {
 			proc_close($process);
 			return $output;
 		} else {
-			throw new Exception("Executing command failed.");
+			throw new RuntimeException("Executing command failed.");
 		}
 	}
 

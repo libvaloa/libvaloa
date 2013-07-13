@@ -87,7 +87,7 @@ class DB {
 		}
 		$drivers = PDO::getAvailableDrivers();
 		if(!in_array($dbconn, $drivers, true)) {
-			throw new Exception("Selected database type '{$dbconn}' is not supported by PDO or PHP is not compiled with the appropriate driver (see www.php.net/pdo).");
+			throw new RuntimeException("Selected database type is not supported by PDO or PHP is not compiled with the appropriate driver (see www.php.net/pdo).");
 		}
 		switch($dbconn) {
 			case "mysql":
@@ -95,7 +95,7 @@ class DB {
 				break;
 			case "sqlite":
 				if(file_exists($database) && !is_readable($database)) {
-					throw new Exception("Selected SQLite database is not readable. Please check your database settings.");
+					throw new RuntimeException("Selected SQLite database is not readable. Please check your database settings.");
 				}
 				$dsn = "sqlite:{$database}";
 				break;
@@ -103,7 +103,7 @@ class DB {
 				$dsn = "pgsql:host={$server} port=5432 dbname={$database} user={$user} password={$pass}";
 				break;
 			default:
-				throw new Exception("Unsupported database type. Can't create database connection.");
+				throw new DomainException("Unsupported database type. Can't create database connection.");
 		}
 		try {
 			$attr = array();
@@ -139,7 +139,7 @@ class DB {
 				return $this->transcnt;
 				
 		}
-		throw new Exception("Program tried to access a non-existant member ".__CLASS__."::{$k}.");
+		throw new OutOfBoundsException("Program tried to access a non-existant member ".__CLASS__."::{$k}.");
 	}
 
 	/**
@@ -238,7 +238,7 @@ class DB {
 			$this->conn->beginTransaction();
 			$this->transcnt++;
 		} catch(Exception $e) {
-			throw new Exception("Could not start database transaction.");
+			throw new RuntimeException("Could not start database transaction.");
 		}
 	}
 
@@ -260,7 +260,7 @@ class DB {
 			}
 			$this->transcnt--;
 		} catch(Exception $e) {
-			throw new Exception("Could not commit database transaction.");
+			throw new RuntimeException("Could not commit database transaction.");
 		}
 	}
 
@@ -271,13 +271,13 @@ class DB {
 	 */
 	public function rollBack() {
 		if($this->transcnt < 1) {
-			throw new Exception("Program attempted to cancel transaction without starting one.");
+			throw new LogicException("Program attempted to cancel transaction without starting one.");
 		}
 		try {
 			$this->conn->rollBack();
 			$this->transcnt--;
 		} catch(Exception $e) {
-			throw new Exception("Could not roll back database transaction.");
+			throw new RuntimeException("Could not roll back database transaction.");
 		}
 	}
 	
@@ -337,7 +337,7 @@ class DB_ResultSet implements Iterator {
 				$this->stmt = $stmt;
 			}
 		} else {
-			throw new Exception("Can't create SQL resultset. Invalid parameters.");
+			throw new InvalidArgumentException("Can't create SQL resultset. Invalid parameters.");
 		}
 	}
 
@@ -375,7 +375,7 @@ class DB_ResultSet implements Iterator {
 			$this->stmt->bindValue($key, $value);
 			return $this;
 		}
-		throw new Exception("Program attempted to set parameter to an executed SQL query.");
+		throw new LogicException("Program attempted to set parameter to an executed SQL query.");
 	}
 	
 	public function setLob($value, $key = false) {
@@ -386,7 +386,7 @@ class DB_ResultSet implements Iterator {
 			$this->stmt->bindValue($key, $value, PDO::PARAM_LOB);
 			return $this;
 		}
-		throw new Exception("Program attempted to set parameter to an executed SQL query.");
+		throw new LogicException("Program attempted to set parameter to an executed SQL query.");
 	}
 	
 	public function bind(&$value, $key = false) {
@@ -397,7 +397,7 @@ class DB_ResultSet implements Iterator {
 			$this->stmt->bindParam($key, $value);
 			return $this;
 		}
-		throw new Exception("Program attempted to bind parameter to an executed SQL query.");
+		throw new LogicException("Program attempted to bind parameter to an executed SQL query.");
 	}
 	
 	public function bindLob($value, $key = false) {
@@ -408,7 +408,7 @@ class DB_ResultSet implements Iterator {
 			$this->stmt->bindParam($key, $value, PDO::PARAM_LOB);
 			return $this;
 		}
-		throw new Exception("Program attempted to bind parameter to an executed SQL query.");
+		throw new LogicException("Program attempted to bind parameter to an executed SQL query.");
 	}
 
 	/**

@@ -89,7 +89,7 @@ class Xml_Conversion {
 			$this->is = 0;
 		} elseif($source instanceof SimpleXMLElement) {
 			if(!class_exists("SimpleXMLElement")) {
-				throw new Exception("Can not parse XML from SimpleXMLElement. SimpleXML extension is missing.");
+				throw new BadMethodCallException("Can not parse XML from SimpleXMLElement. SimpleXML extension is missing.");
 			}
 			$this->is = 1;
 		} elseif(is_object($source) || is_array($source)) {
@@ -103,7 +103,7 @@ class Xml_Conversion {
 			// @todo validation, charset selection
 			$this->is = 4;
 		} else {
-			throw new Exception("XML source is invalid.");
+			throw new InvalidArgumentException("XML source is invalid.");
 		}
 		$this->source = $source;
 	}
@@ -287,7 +287,7 @@ class Xml_Conversion {
 	 */
 	public static function stylesToProc($files = array()) {
 		if(!class_exists("XsltProcessor")) {
-			throw new Exception("XSL extension is missing. Can not create XsltProcessor.");
+			throw new BadMethodCallException("XSL extension is missing. Can not create XsltProcessor.");
 		}
 		$dom = self::stylesToDOM($files);
 		$proc = new XsltProcessor;
@@ -312,7 +312,7 @@ class Xml_Conversion {
 			unset($primary);
 		}
 		if(!isset($primary)) {
-			throw new Common_Exception(i18n("No valid XML stylesheets were found for XSLT parser."));
+			throw new RuntimeException("No valid XML stylesheets were found for XSLT parser.");
 		}
 		
 		foreach($files as $k=>&$v) {

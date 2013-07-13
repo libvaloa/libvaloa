@@ -87,7 +87,7 @@ class File {
 		}
 		$data = file_get_contents($this->path);
 		if($data === false) {
-			throw new Exception("Unable to read file '{$this->path}'");
+			throw new RuntimeException("Unable to read file '{$this->path}'");
 		}
 		return $data;
 	}
@@ -103,7 +103,7 @@ class File {
 	public function write($content, $flags = NULL) {
 		$new = !file_exists($this->path);
 		if(file_put_contents($this->path, $content, $flags) === false) {
-			throw new Exception("Unable to write to file '{$this->path}'.");
+			throw new RuntimeException("Unable to write to file '{$this->path}'.");
 		}
 		if($new && isset(self::$defaultperm)) {
 			$this->chmod(self::$defaultperm);
@@ -119,9 +119,9 @@ class File {
 			return;
 		}
 		if(is_dir($this->path) && rmdir($this->path) === false) {
-			throw new Exception("Unable to delete directory '{$this->path}'.");
+			throw new RuntimeException("Unable to delete directory '{$this->path}'.");
 		} elseif(unlink($this->path) === false) {
-			throw new Exception("Unable to delete file '{$this->path}'.");
+			throw new RuntimeException("Unable to delete file '{$this->path}'.");
 		}
 	}
 	
@@ -132,7 +132,7 @@ class File {
 	 */
 	public function cp($to) {
 		if(file_exists($this->path) && copy($this->path, $to) === false) {
-			throw new Exception("Unable to copy file to '{$to}'.");
+			throw new RuntimeException("Unable to copy file to '{$to}'.");
 		}
 		return new File($to);
 	}
@@ -144,7 +144,7 @@ class File {
 	 */
 	public function mv($to) {
 		if(file_exists($this->path) && rename($this->path, $to) === false) {
-			throw new Exception(i18n("Unable to move file to '{$to}'.");
+			throw new RuntimeException("Unable to move file to '{$to}'.");
 		}
 		$this->path = $to;
 	}
@@ -160,7 +160,7 @@ class File {
 			return false;
 		}
 		if($oct !== NULL && chmod($this->path, $oct) === false) {
-			throw new Exception("Unable to change permissions for file '{$this->path}'.");
+			throw new RuntimeException("Unable to change permissions for file '{$this->path}'.");
 		}
 
 		// This is copied from php.net examples, untested
@@ -212,7 +212,7 @@ class File {
 	private function tmpnam() {
 		$file = tempnam(sys_get_temp_dir(), "");
 		if(!$file) {
-			throw new Exception("Failed to create temporary filename.");
+			throw new RuntimeException("Failed to create temporary filename.");
 		}
 		if(!isset(self::$autoclean)) {
 			register_shutdown_function(array("File","cleanTmp"));

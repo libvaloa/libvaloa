@@ -114,7 +114,7 @@ class Controller {
 			}
 			
 			if(!$request->moduleExists()) {
-				throw new Exception("Application not found.");
+				throw new BadMethodCallException("Application not found.");
 			} else {
 				unset($params[0]);
 				if(isset($params[1])) {
