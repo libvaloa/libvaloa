@@ -50,9 +50,9 @@
  * @uses          xml_Read
  */
 
-if(!defined('LIBVALOA_DEBUG'))               define('LIBVALOA_DEBUG', 0);
-if(!defined('LIBVALOA_UI'))                  define('LIBVALOA_UI', 'XML_UI');
-if(!defined('LIBVALOA_SESSION_MAXLIFETIME')) define('LIBVALOA_SESSION_MAXLIFETIME', 43200);
+if(!defined('LIBVALOA_DEBUG'))               { define('LIBVALOA_DEBUG', 0); }
+if(!defined('LIBVALOA_UI'))                  { define('LIBVALOA_UI', 'XML_UI'); }
+if(!defined('LIBVALOA_SESSION_MAXLIFETIME')) { define('LIBVALOA_SESSION_MAXLIFETIME', 43200); }
 
 class libvaloa {
 

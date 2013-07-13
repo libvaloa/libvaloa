@@ -51,17 +51,17 @@ if(file_exists("config.php")) {
 }
 
 // Predefine some core vars
-if(!defined("LIBVALOA_INSTALLPATH"))    DEFINE("LIBVALOA_INSTALLPATH", ".");
-if(!defined("LIBVALOA_EXTENSIONSPATH")) DEFINE("LIBVALOA_EXTENSIONSPATH", LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."extensions");
-if(!defined("LIBVALOA_DEBUG"))          DEFINE("LIBVALOA_DEBUG", 0);
-if(!defined("LIBVALOA_LAYOUT"))         DEFINE("LIBVALOA_LAYOUT", 'default');
+if(!defined("LIBVALOA_INSTALLPATH"))    { define("LIBVALOA_INSTALLPATH", "."); }
+if(!defined("LIBVALOA_EXTENSIONSPATH")) { define("LIBVALOA_EXTENSIONSPATH", LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."extensions"); }
+if(!defined("LIBVALOA_DEBUG"))          { define("LIBVALOA_DEBUG", 0); }
+if(!defined("LIBVALOA_LAYOUT"))         { define("LIBVALOA_LAYOUT", 'default'); }
 
 // Default database settings
-if(!defined("LIBVALOA_DB"))             DEFINE("LIBVALOA_DB", "sqlite");
-if(!defined("LIBVALOA_DB_SERVER"))      DEFINE("LIBVALOA_SERVER", "localhost");
-if(!defined("LIBVALOA_DB_USERNAME"))    DEFINE("LIBVALOA_USERNAME", "");
-if(!defined("LIBVALOA_DB_PASSWORD"))    DEFINE("LIBVALOA_PASSWORD", "");
-if(!defined("LIBVALOA_DB_DATABASE"))    DEFINE("LIBVALOA_DATABASE", LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."db".DIRECTORY_SEPARATOR."default.sqlite");
+if(!defined("LIBVALOA_DB"))             { define("LIBVALOA_DB", "sqlite"); }
+if(!defined("LIBVALOA_DB_SERVER"))      { define("LIBVALOA_SERVER", "localhost"); }
+if(!defined("LIBVALOA_DB_USERNAME"))    { define("LIBVALOA_USERNAME", ""); }
+if(!defined("LIBVALOA_DB_PASSWORD"))    { define("LIBVALOA_PASSWORD", ""); }
+if(!defined("LIBVALOA_DB_DATABASE"))    { define("LIBVALOA_DATABASE", LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."db".DIRECTORY_SEPARATOR."default.sqlite"); }
 
 if(!is_readable(LIBVALOA_INSTALLPATH.DIRECTORY_SEPARATOR."kernel".DIRECTORY_SEPARATOR."main.php")) {
 	die("libvaloa kernel is missing.");

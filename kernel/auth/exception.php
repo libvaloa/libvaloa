@@ -44,7 +44,7 @@
  * @uses          XML_UI
  */
 
-if(!defined('LIBVALOA_UI'))                  define('LIBVALOA_UI', 'XML_UI');
+if(!defined('LIBVALOA_UI'))                  { define('LIBVALOA_UI', 'XML_UI'); }
 
 class Auth_Exception extends Common_Exception {
 

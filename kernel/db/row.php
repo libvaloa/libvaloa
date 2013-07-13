@@ -61,7 +61,7 @@
  * @uses       DB
  */
 
-if(!defined('LIBVALOA_DB')) DEFINE('LIBVALOA_DB', 'mysql');
+if(!defined('LIBVALOA_DB')) { DEFINE('LIBVALOA_DB', 'mysql'); }
  
 class DB_Row {
 

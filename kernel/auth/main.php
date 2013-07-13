@@ -47,10 +47,10 @@
  * @uses          Controller_Redirect
  */
 
-if(!defined('LIBVALOA_AUTH'))                       define('LIBVALOA_AUTH','null');
-if(!defined('LIBVALOA_AUTH_CHECKIP'))               define('LIBVALOA_AUTH_CHECKIP', 1);
-if(!defined('LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR')) define('LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR', 0);
-if(!defined('LIBVALOA_DEFAULT_ROUTE'))              define('LIBVALOA_DEFAULT_ROUTE', '/');
+if(!defined('LIBVALOA_AUTH'))                       { define('LIBVALOA_AUTH','null'); }
+if(!defined('LIBVALOA_AUTH_CHECKIP'))               { define('LIBVALOA_AUTH_CHECKIP', 1); }
+if(!defined('LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR')) { define('LIBVALOA_CHECK_HTTP_X_FORWARDED_FOR', 0); }
+if(!defined('LIBVALOA_DEFAULT_ROUTE'))              { define('LIBVALOA_DEFAULT_ROUTE', '/'); }
 
 class Auth {
 

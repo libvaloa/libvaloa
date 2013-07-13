@@ -38,7 +38,7 @@
 
 // LIBVALOA_PASSWORD_USE_CRYPT 0 = Double-salted sha1- passwords
 // LIBVALOA_PASSWORD_USE_CRYPT 1 = Crypt password using php's built-in crypt()
-if(!defined('LIBVALOA_PASSWORD_USE_CRYPT')) DEFINE('LIBVALOA_PASSWORD_USE_CRYPT', 1);
+if(!defined('LIBVALOA_PASSWORD_USE_CRYPT')) { DEFINE('LIBVALOA_PASSWORD_USE_CRYPT', 1); }
 
 class Auth_Password {
 

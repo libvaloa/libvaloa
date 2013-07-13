@@ -45,7 +45,7 @@
  * @subpackage Xml
  */
 
-if(!defined('LIBVALOA_XML_ENABLE_PHP_FUNCTIONS')) define('LIBVALOA_XML_ENABLE_PHP_FUNCTIONS', 1);
+if(!defined('LIBVALOA_XML_ENABLE_PHP_FUNCTIONS')) { define('LIBVALOA_XML_ENABLE_PHP_FUNCTIONS', 1); }
 
 class Xml_Xsl {
 

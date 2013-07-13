@@ -46,7 +46,7 @@
  * @uses          DB
  */
 
-if(!defined('LIBVALOA_DEBUG')) define('LIBVALOA_DEBUG', 0);
+if(!defined('LIBVALOA_DEBUG')) { define('LIBVALOA_DEBUG', 0); }
 
 class Debug {
 
