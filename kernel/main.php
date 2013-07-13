@@ -232,7 +232,7 @@ class Main {
 			$this->ui->currentroute = $this->request->getCurrentRoute();
 			$this->ui->basehref = $this->request->getBaseUri();
 			$this->ui->basepath = $this->request->getPath();
-			$this->ui->lang = Xml_Read::detectLocale();
+			$this->ui->locale = $_SESSION["locale"];
 
 			if(isset($_SESSION["UserID"])) {
 				$this->ui->userid = $_SESSION["UserID"];

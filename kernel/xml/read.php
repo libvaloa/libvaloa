@@ -64,10 +64,7 @@ class Xml_Read extends XML {
 	}
 
 	/**
-	 * Returns locale for user.
-	 *
-	 * Search order is user profile, global profile and then default 'en'.
-	 * Locale is stored to self::locale variable for quick retrieval.
+	 * Returns locale.
 	 *
 	 * @access public
 	 * @return string Locale fe. 'en' or 'fi'
@@ -81,6 +78,7 @@ class Xml_Read extends XML {
 	
 	/**
 	 * Loads module strings for translation.
+	 *
 	 * @access public
 	 * @param  string $module Module-name
 	 */
@@ -107,6 +105,7 @@ class Xml_Read extends XML {
 	
 	/**
 	 * Loads theme strings for translation.
+	 *
 	 * @access public
 	 */
 	public function loadThemeStrings() {
