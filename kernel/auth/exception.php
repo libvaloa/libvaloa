@@ -44,10 +44,13 @@
  * @uses          XML_UI
  */
 
+if(!defined('LIBVALOA_UI'))                  define('LIBVALOA_UI', 'XML_UI');
+
 class Auth_Exception extends Common_Exception {
 
 	public function denyAccess() {
-		$ui = new XML_UI;
+		$tmp = LIBVALOA_UI;
+		$ui = new $tmp;
 		$ui->addError($this->getMessage());
 		$auth = new Auth;
 		$auth->logout();
