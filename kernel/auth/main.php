@@ -87,7 +87,7 @@ class Auth {
 		if(class_exists("Auth_{$driver}")) {
 			$this->backend = "Auth_{$driver}";
 		} else {
-			throw new Exception("System error. Authentication driver '{$driver}' is not available.");
+			throw new BadMethodCallException("System error. Authentication driver not available.");
 		}
 	}
 
@@ -109,8 +109,8 @@ class Auth {
 			$_SESSION["User"] = $user;
 			$_SESSION["UserID"] = $auth->getExternalUserID($user);
 			$_SESSION["ExternalSessionID"] = $auth->getExternalSessionID($user);
-			$_SESSION["IP"] = self::getClientIP();
-			$_SESSION["BASEHREF"] = $request->getBaseUri(true);
+			$_SESSION["ClientIP"] = self::getClientIP();
+			$_SESSION["BaseUri"] = $request->getBaseUri(true);
 			return true;
 		}
 		return false;
@@ -141,11 +141,11 @@ class Auth {
 	 */
 	public static function authorize($module) {
 		// trying to get from other installation on the same server
-		if(!$module || isset($_SESSION["BASEHREF"]) && $_SESSION["BASEHREF"] != Controller_Request::getInstance()->getBaseUri(true)) {
+		if(!$module || isset($_SESSION["BaseUri"]) && $_SESSION["BaseUri"] != Controller_Request::getInstance()->getBaseUri(true)) {
 			return false;
 		}
 		if(LIBVALOA_AUTH_CHECKIP == 1) {
-			if(self::getClientIP() != $_SESSION["IP"]) {
+			if(self::getClientIP() != $_SESSION["ClientIP"]) {
 				return false;
 			}
 		}
