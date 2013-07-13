@@ -50,8 +50,9 @@
  * @uses          xml_Read
  */
 
-if(!defined('LIBVALOA_DEBUG')) define('LIBVALOA_DEBUG', 0);
-if(!defined('LIBVALOA_UI'))    define('LIBVALOA_UI', 'XML_UI');
+if(!defined('LIBVALOA_DEBUG'))               define('LIBVALOA_DEBUG', 0);
+if(!defined('LIBVALOA_UI'))                  define('LIBVALOA_UI', 'XML_UI');
+if(!defined('LIBVALOA_SESSION_MAXLIFETIME')) define('LIBVALOA_SESSION_MAXLIFETIME', 43200);
 
 class libvaloa {
 
@@ -70,9 +71,9 @@ class libvaloa {
 		// ini_set is quite often disabled on shared hosts, so just
 		// ignore cg_maxlifetime if ini_set is not available.
 		if(function_exists('ini_set')) {
-			ini_set("session.gc_maxlifetime", "43200");
+			ini_set("session.gc_maxlifetime", LIBVALOA_SESSION_MAXLIFETIME);
 		}
-		session_set_cookie_params(43200);
+		session_set_cookie_params(LIBVALOA_SESSION_MAXLIFETIME);
 		session_start();
 		
 		// Register class autoloader.
