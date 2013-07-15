@@ -38,7 +38,7 @@
 
 Interface Auth_IFace {
 
-	public function authentication($user, $pass);
+	public function authenticate($user, $pass);
 	public function authorize($userid, $module);
 	public function getExternalUserID($user);
 	public function getExternalSessionID($user);

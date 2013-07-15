@@ -44,7 +44,7 @@
 
 class Auth_Null implements Auth_IFace, Auth_PWResetIFace {
 
-	public function authentication($user, $pass) {
+	public function authenticate($user, $pass) {
 		return false;
 	}
 

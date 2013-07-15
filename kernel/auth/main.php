@@ -102,7 +102,7 @@ class Auth {
 	 * @param       string $pass Password
 	 * @return      bool Boolean wether or not authentication was valid
 	 */
-	public function authentication($user, $pass) {
+	public function authenticate($user, $pass) {
 		$auth = new $this->backend;
 		$request = Controller_Request::getInstance();
 		if($auth->authentication($user, $pass)) {
