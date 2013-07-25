@@ -46,7 +46,7 @@
  * @uses       Xml_Xsl
  */
 
-class Xml_UI extends Xml Implements UI {
+class UI_XML extends Xml Implements UI {
 
 	/**
 	 * @access private

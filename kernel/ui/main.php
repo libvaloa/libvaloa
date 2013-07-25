@@ -43,6 +43,7 @@ interface UI {
 	public function getIncludePaths();
 	public function issetPageRoot();
 	public function setPageRoot($pageRoot);
+	public function setMainTemplate($file);
 	public function addJS($file);
 	public function addCSS($file);
 	public function addTemplate($file);

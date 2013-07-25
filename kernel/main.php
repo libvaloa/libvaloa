@@ -46,12 +46,12 @@
  * @uses          Common_Debug
  * @uses          Controller_Request
  * @uses          DB
- * @uses          Xml_UI
+ * @uses          UI
  * @uses          xml_Read
  */
 
 if(!defined('LIBVALOA_DEBUG'))               { define('LIBVALOA_DEBUG', 0); }
-if(!defined('LIBVALOA_UI'))                  { define('LIBVALOA_UI', 'XML_UI'); }
+if(!defined('LIBVALOA_UI'))                  { define('LIBVALOA_UI', 'UI_XML'); }
 if(!defined('LIBVALOA_SESSION_MAXLIFETIME')) { define('LIBVALOA_SESSION_MAXLIFETIME', 43200); }
 
 class libvaloa {
@@ -223,7 +223,7 @@ class Main {
 			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR.LIBVALOA_LAYOUT);
 			$this->ui->includePath(LIBVALOA_EXTENSIONSPATH.DIRECTORY_SEPARATOR."modules".DIRECTORY_SEPARATOR.$this->request->getMainModule());
 			if($this->request->isAjax()) {
-				$this->ui->setMainXSL("empty");
+				$this->ui->setMainTemplate("empty");
 			}
 
 			// UI properties
