@@ -70,7 +70,7 @@ class Net_HTTP extends Net_Socket {
 	 */
 	public function setMethod($method) {
 		$method = strtoupper($method);
-		if(in_array($method, array("GET", "PURGE", "POST"), true)) {
+		if(in_array($method, array("GET", "PUT", "PURGE", "POST", "DELETE"), true)) {
 			$this->method = $method;
 			return true;
 		} else {
@@ -194,8 +194,8 @@ class Net_HTTP extends Net_Socket {
 		} else {
 			$getdata = "";
 		}
-		if($this->method === "GET" || $this->method === "PURGE") {
-			$request = "{$this->method} {$this->sliced['request']}{$getdata} HTTP/1.0\r\n";
+		if($this->method === "GET" || $this->method === "PURGE" || $this->method === "DELETE") {
+			$request = "{$this->method} {$this->sliced['request']}{$getdata} HTTP/1.1\r\n";
 			$request.= "Host: {$this->sliced['host']}\r\n";
 			if(isset($this->basicauth["user"]) && isset($this->basicauth["pass"])) {
 				$str = base64_encode("{$this->basicauth["user"]}:{$this->basicauth["pass"]}");
@@ -209,9 +209,10 @@ class Net_HTTP extends Net_Socket {
 			$request.= $this->content;
 			$request.= "\r\n\r\n";
 		} else {
+			// POST, PUT
 			$postdata = implode("&", $this->post);
 			$this->content = "{$postdata}\r\n{$this->content}";
-			$request = "POST {$this->sliced['request']}{$getdata} HTTP/1.0\r\n";
+			$request = "{$this->method} {$this->sliced['request']}{$getdata} HTTP/1.1\r\n";
 			$request.= "Host: {$this->sliced['host']}\r\n";
 			$request.= $this->extraHeaders;
 			if(isset($this->basicauth["user"]) && isset($this->basicauth["pass"])) {
