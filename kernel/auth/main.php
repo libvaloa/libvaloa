@@ -105,7 +105,7 @@ class Auth {
 	public function authenticate($user, $pass) {
 		$auth = new $this->backend;
 		$request = Controller_Request::getInstance();
-		if($auth->authentication($user, $pass)) {
+		if($auth->authenticate($user, $pass)) {
 			$_SESSION["User"] = $user;
 			$_SESSION["UserID"] = $auth->getExternalUserID($user);
 			$_SESSION["ExternalSessionID"] = $auth->getExternalSessionID($user);
