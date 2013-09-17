@@ -52,6 +52,7 @@
 
 if(!defined('LIBVALOA_DEBUG'))               { define('LIBVALOA_DEBUG', 0); }
 if(!defined('LIBVALOA_UI'))                  { define('LIBVALOA_UI', 'UI_XML'); }
+if(!defined('LIBVALOA_SESSION_START'))       { define('LIBVALOA_SESSION_START', 1); }
 if(!defined('LIBVALOA_SESSION_MAXLIFETIME')) { define('LIBVALOA_SESSION_MAXLIFETIME', 43200); }
 
 class libvaloa {
@@ -70,11 +71,13 @@ class libvaloa {
 		// Start session.
 		// ini_set is quite often disabled on shared hosts, so just
 		// ignore cg_maxlifetime if ini_set is not available.
-		if(function_exists('ini_set')) {
-			ini_set("session.gc_maxlifetime", LIBVALOA_SESSION_MAXLIFETIME);
+		if(LIBVALOA_SESSION_START == 1) {
+			if(function_exists('ini_set')) {
+				ini_set("session.gc_maxlifetime", LIBVALOA_SESSION_MAXLIFETIME);
+			}
+			session_set_cookie_params(LIBVALOA_SESSION_MAXLIFETIME);
+			session_start();
 		}
-		session_set_cookie_params(LIBVALOA_SESSION_MAXLIFETIME);
-		session_start();
 		
 		// Register class autoloader.
 		spl_autoload_register(array("libvaloa", "autoload"));
