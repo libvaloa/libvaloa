@@ -312,7 +312,7 @@ class UI_XML extends Xml Implements UI {
 	 * @param  mixed $message Error message or array of errors
 	 */
 	public function addError($message) {
-		self::addMessage($message, "error");
+		$this->addMessage($message, "error");
 	}
 
 	/**
