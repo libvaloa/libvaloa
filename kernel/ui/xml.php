@@ -276,7 +276,10 @@ class UI_XML extends Xml Implements UI {
 				$this->requisites->{$ext}[] = "resource/{$tmp}";
 				return;
 			}
-		}		
+		}
+
+		// Just add the filename if not found in resource paths
+		$this->requisites->{$ext}[] = $name;
 	}
 
 	/**
